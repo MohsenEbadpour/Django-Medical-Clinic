@@ -34,5 +34,5 @@ This was developed as a task for "software engineering" course in University of 
 - sqlparse 0.3.0
 
 # مشارکت کنندگان
-@MohsenEbadpour
-@redhatx7
+[محسن عبادپور](https://github.com/MohsenEbadpour)
+[امیررضا آزادپور](https://github.com/redhatx7)
