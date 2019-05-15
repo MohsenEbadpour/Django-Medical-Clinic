@@ -32,3 +32,7 @@ This was developed as a task for "software engineering" course in University of 
 - Django 2.2 / python 3.5.6
 - pytz 2019.1
 - sqlparse 0.3.0
+
+#مشارکت کنندگان
+@MohsenEbadpour
+@redhatx7
