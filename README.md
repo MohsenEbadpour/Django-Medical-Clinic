@@ -15,6 +15,9 @@ This was developed as a task for "software engineering" course in University of 
 - pytz 2019.1
 - sqlparse 0.3.0
 
+## Contributors
+[Mohsen Ebadpour](https://github.com/MohsenEbadpour)
+[Amirreza Azadpour](https://github.com/redhatx7)
 
 # پروژه مدیریت درمانگاه
 ## توضیحات
