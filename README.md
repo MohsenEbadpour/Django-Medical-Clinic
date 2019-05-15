@@ -3,8 +3,8 @@
 This is a django project which it was developed for managing a small clinic with following feature:
 - Blogging system for notices possibility
 - Multi user interface including: staff, doctor and patient
-- Medical history storing for sicks to report for her/him self and document for next visits
-- Money transferring between doctor/sick (symbolic transferring - you can put your own strategy)
+- Medical history storing for patientes to report for her/him self and document for next visits
+- Money transferring between doctor/patient (symbolic transferring - you can put your own strategy)
 - visiting sick in turn order by doctor
 - Front-End with bootstrap v4
 
