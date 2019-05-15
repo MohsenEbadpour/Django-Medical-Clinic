@@ -199,7 +199,7 @@ def passed_for_doctor(request):
 @login_required
 @doctor_required
 def shift_list_for_doctor(request):
-    shifts = Shift.objects.filter(end_date__gte=timezone.now())
+    shifts = Shift.objects.filter(end_date__gte=timezone.now(),doctor=request.user.doctor)
     return render(request, "turn/shift_list_for_doctor.html", {"shifts": shifts})
 
 
