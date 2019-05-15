@@ -15,6 +15,8 @@ This was developed as a task for "software engineering" course in University of 
 - pytz 2019.1
 - sqlparse 0.3.0
 
+
+# پروژه مدیریت درمانگاه
 ## توضیحات
 این یک پروژه جنگو می باشد که برای مدیریت یک درمانگاه کوچک توسعه یافته است که دارای ویژگی های زیر است:
 - سیستم بلاگ برای امکان اطلاع رسانی
