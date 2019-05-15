@@ -1,0 +1,44 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    <div class="card">
+        <div class="card-header p-b-0">
+            <h5 class="card-title">
+                <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                    <div class="bold">
+                        <i class="fa fa-sign-in-alt"></i> کاربران پرتال
+                    </div>
+                </section>
+            </h5>
+        </div>
+        <div class="card-block">
+            <div class="m-3">
+                <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                    {% if form.errors %} {% for field in form %} {% for error in field.errors %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                    </div>
+                    {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                    </div>
+                    {% endfor %} {% endif %}
+                    <form action="" method="POST"> {% csrf_token %}
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="id_email" name="email" placeholder="نام کاربری (E-mail یا کد ملی)" required="این فیلد اجباری است">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="id_password" name="password" placeholder="گذرواژه" required="این فیلد اجباری است">
+                        </div>
+                        <button type="submit" class="btn btn-success"><div class="bold">ورود به پرتال</div></button>
+                    </form>
+                </section>
+                <section class="font font-bbcnassim-eot">
+                    <a href="/signup/sick"><button class="btn btn-primary"><div class="bold">ثبت نام بیمار</div></button></a>
+                    <a href="/signup/doctor"><button class="btn btn-primary"><div class="bold">ثبت نام پزشک</div></button></a>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

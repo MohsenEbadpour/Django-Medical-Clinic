@@ -1,0 +1,76 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    {% if readonly %}
+                    <h5 class="bold">ویرایش پست </h5>
+                    {% else %}
+                    <h5 class="bold">ایجاد پست </h5>
+                    {% endif %}
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+
+                        <div class="m-2">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+
+                                {% if form.errors %} {% for field in form %} {% for error in field.errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                                </div>
+                                {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                                </div>
+                                {% endfor %} {% endif %}
+
+                                <form class="form" method="POST">{% csrf_token %}
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">عنوان پست</div></label>
+                                        <div class="col-8">
+                                            <input type="text" class="form-control " name="title" placeholder="عنوان پست را وارد کنید" required {% if readonly %}value="{{post.title}}" {% endif %}>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">متن پست</div></label>
+                                        <div class="col-8">
+                                            <textarea placeholder="متن پست را وارد کنید" rows="6" cols="59" name="context" required>{% if readonly %}{{post.context}}{% endif %}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">هشتگ ها</div></label>
+                                        <div class="col-8">
+                                            <input type="text" class="form-control " name="hashtags" placeholder="هشتگ های پست را با فاصله وارد کنید" required {% if readonly %}value="{{post.hashtags}}" {% endif %}>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">منتشر شود</div></label>
+                                        <div class="col-8">
+                                            <input type="checkbox" class="form-control " name="is_published" {% if post.is_published %} checked {% endif %}>
+                                        </div>
+                                    </div>
+
+
+
+                                    <a href="/posts/archives" class="btn btn-danger">
+                                        <div class="bold">انصراف</div>
+                                    </a> {%if readonly%}
+                                    <button type="submit" class="btn btn-primary"><div class="bold">ثبت تغییرات</div></button> {% else %}
+                                    <button type="submit" class="btn btn-primary"><div class="bold">ایجاد پست</div></button> {% endif %}
+
+                                </form>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div> {%endblock%}

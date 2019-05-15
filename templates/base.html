@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="fa">
+
+<head>
+
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Language" content="fa" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous">
+
+    <link href="https://cdn.rawgit.com/rastikerdar/vazir-font/v19.2.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+    <!-- Tempus Dominus Bootstrap 4 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
+
+    <title>سیستم مدیریت درمانگاه</title>
+    <link rel="shortcut icon" type="image/icon" href="{% static  'sources/icon.png' %}" />
+    <link rel="stylesheet" href="{% static  'sources/font.css' %}">
+
+
+</head>
+
+<body>
+
+
+    <div class="container-fluid m-0" style="background-color:#EDEDED ">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="float-right">
+                    <img src="{% static  'sources/darman.png' %}" class="rounded-top" alt="وزارت بهداشت" height="150" width="180">
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="mt-5">
+                    <div class="float-right">
+                        <a href="#">
+                            <section class="font font-bbcnassim-all">
+
+                                <h1 class="bold h1" style="direction: rtl; color:#213738; text-decoration: none;"> پرتال جامع درمانگاه امام رضا (ع)</h1>
+
+                            </section>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <div class="mt-4">
+                    <div align="center">
+                        <a href="#">
+                            <img src="{% static  'sources/clinic.png' %}" class="rounded-top" alt="لوگوی سایت" height="100" width="120">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+        <div class="container-fluid">
+
+
+            <!-- loged in -->
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated%}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{% static  'sources/profilepic.png' %}" width="40" height="40" class="rounded-circle">
+                    </a>
+
+                    <div class="dropdown-menu" style="direction: rtl; text-align: right; " aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/logout">خروج از سیستم</a>
+                    </div>
+                </li>
+                <li class="nav-item mt-2">
+                    <section class="font font-bbcnassim-eot">
+                        <a class="nav-link bold" href="/">{%if request.user.sick %}{{request.user.sick.name}} {% else %}{{request.user.doctor.name}} {% endif %} {%if request.user.staff %}{{request.user.staff.name}} {% endif %}<span class="sr-only"></span></a>
+                    </section>
+                </li>
+                {% endif %}
+            </ul>
+            <!-- loged in -->
+
+
+            <div class="right-side d-flex">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <section class="font font-bbcnassim-all" style=" text-align: right; ">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">تماس با درمانگاه</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">درباره درمانگاه</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">لیست اطلاعیه ها</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/">صفحه اصلی </a>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!--container-fluid-->
+    <div class="container-fluid">
+
+        {% if not request.user.is_authenticated%}
+        <div class="row">
+            <marquee direction="right" style="color:#126B68;">
+                <section class="font font-bbcnassim-all">
+                    <div class="bold"> جهت نوبت گیری از پزشکان لطفا وارد پرتال شوید</div>
+                </section>
+            </marquee>
+        </div>
+        {% endif %}
+        <div class="row">
+
+            <!-- Left Column -->
+            <div class="col-sm-2">
+
+                <div class="m-1">
+                    <section class="font font-bbcnassim-all" style=" text-align: right; ">
+                        <div class="card">
+                            <div class="card-header p-b-0">
+                                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                                    <div class="bold">
+                                        <h5 class="card-title">سایت های مرتبط <i class="fa fa-random" aria-hidden="true"></i></h5>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="http://www.arums.ac.ir/fa" target="_blank" class="list-group-item list-group-item-action">دانشگاه علوم پزشکی اردبیل</a>
+                                <a href="http://www.uma.ac.ir/" target="_blank" class="list-group-item list-group-item-action">دانشگاه محقق اردبیلی</a>
+                                <a href="http://www.ostan-ar.ir/" target="_blank" class="list-group-item list-group-item-action">استانداری اردبیل</a>
+                                <a href="http://www.bmn.ir/" target="_blank" class="list-group-item list-group-item-action">بنیاد ملی نخبگان</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="m-1">
+                    <div class="card">
+                        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+                            <div class="card-header p-b-0">
+                                <h5 class="card-title">
+                                    جست و جو
+                                    <i class="fa fa-search" aria-hidden="true"></i> </h5>
+                            </div>
+                            <div class="card-block">
+                                <div class="m-2">
+
+                                    <form method="GET" action="/">
+                                        <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="" name="q" placeholder="اخبار، اطلاعیه ها و ...">
+                                            </div>
+                                        </section>
+                                        <button type="submit" class="btn btn-light">جست و جو</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--/Left Column-->
+
+            <!--/Center Column-->
+            <div class="col-sm-7">
+
+                {% block content %} {% endblock content %}
+
+
+
+            </div>
+            <!--/Center Column-->
+
+            <!--Right Column-->
+            <div class="col-sm-3">
+
+
+
+                {% if not request.user.is_authenticated%}
+                <div class="m-2">
+                    <div class="card">
+                        <div class="card-header p-b-0">
+                            <h5 class="card-title">
+                                <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                                    <div class="bold">
+                                        <i class="fa fa-sign-in-alt"></i> کاربران پرتال
+                                    </div>
+                                </section>
+                            </h5>
+                        </div>
+                        <div class="card-block">
+                            <div class="m-3">
+                                <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                                    <form action="/login/" method="POST"> {% csrf_token %}
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="id_email" name="email" placeholder="نام کاربری (E-mail یا کد ملی)" required="این فیلد اجباری است">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" id="id_password" name="password" placeholder="گذرواژه" required="این فیلد اجباری است">
+                                        </div>
+                                        <button type="submit" class="btn btn-success"><div class="bold">ورود به پرتال</div></button>
+                                    </form>
+                                </section>
+                                <section class="font font-bbcnassim-eot">
+                                    <a href="/signup/sick"><button class="btn btn-primary"><div class="bold">ثبت نام بیمار</div></button></a>
+                                    <a href="/signup/doctor"><button class="btn btn-primary"><div class="bold">ثبت نام پزشک</div></button></a>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %} {% if request.user.is_authenticated%}
+                <div class="m-2">
+                    <section class="font font-bbcnassim-all" style=" text-align: right; ">
+                        <div class="card">
+                            <div class="card-header p-b-0">
+                                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                                    <div class="bold">
+                                        <h5 class="card-title">حساب کاربری <i class="fa fa-users"></i>
+                                        </h5>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="/" class="list-group-item list-group-item-action">اخبار و اطلاعیه ها <i class="far fa-newspaper"></i></a>
+                                <a href="/account" class="list-group-item list-group-item-action">مشاهده پروفایل <i class="fa fa-eye"></i></a>
+                                <a href="/account/edit" class="list-group-item list-group-item-action">ویرایش پروفایل <i class="fa fa-edit"></i></a>
+                                <a href="/logout" class="list-group-item list-group-item-action">خروج <i class="fas fa-sign-out-alt"></i></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                {%endif%} {% if request.user.sick %}
+                <div class="m-2">
+                    <section class="font font-bbcnassim-all" style=" text-align: right; ">
+                        <div class="card">
+                            <div class="card-header p-b-0">
+                                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                                    <div class="bold">
+                                        <h5 class="card-title">روند درمانی و نوبت دهی <i class="fa fa-notes-medical"></i>
+                                        </h5>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="/shifts/list" class="list-group-item list-group-item-action">مشاهده لیست پزشکان و دریافت نوبت <i class="fa fa-user-md"></i></a>
+                                <a href="/shifts/load" class="list-group-item list-group-item-action">مشاهده نوبت های دریافتی <i class="fa fa-vial"></i> </a>
+                                <a href="/shifts/passed" class="list-group-item list-group-item-action">مشاهده لیست سوابق درمانی <i class="fa fa-paste"></i></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="m-2">
+                    <section class="font font-bbcnassim-all" style=" text-align: right; ">
+                        <div class="card">
+                            <div class="card-header p-b-0">
+                                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                                    <div class="bold">
+                                        <h5 class="card-title">کیف پول: {{request.user.sick.cash}} تومان <i class="fa fa-wallet"></i>
+                                        </h5>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="/shifts/cash/increase" class="list-group-item list-group-item-action">افزایش اعتبار <i class="fa fa-coins"></i></a>
+                                <a href="/shifts/cash/" class="list-group-item list-group-item-action">مشاهده سوابق <i class="fa fa-money-check-alt"></i></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                {% endif %} {% if request.user.doctor %}
+                <div class="m-2">
+                    <section class="font font-bbcnassim-all" style=" text-align: right; ">
+                        <div class="card">
+                            <div class="card-header p-b-0">
+                                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                                    <div class="bold">
+                                        <h5 class="card-title">کارتابل پزشکی و مالی <i class="fab fa-accusoft"></i>
+                                        </h5>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="/shifts/my-shifts" class="list-group-item list-group-item-action">مشاهده لیست شیفت های آتی <i class="fas fa-file-medical-alt"></i> </a>
+                                <a href="/shifts/my-passed-turns" class="list-group-item list-group-item-action">مشاهده لیست ویزیت های انجام شده <i class="fas fa-syringe"></i></a>
+                                <a href="/shifts/my-cash-list" class="list-group-item list-group-item-action">مشاهده لیست سوابق مالی <i class="fas fa-funnel-dollar"></i></a>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                {% endif %} {% if request.user.staff %}
+                <div class="m-2">
+                    <section class="font font-bbcnassim-all" style=" text-align: right; ">
+                        <div class="card">
+                            <div class="card-header p-b-0">
+                                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                                    <div class="bold">
+                                        <h5 class="card-title">کارتابل مدیریت <i class="fas fa-user-circle"></i>
+                                        </h5>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="/doctor-manage" class="list-group-item list-group-item-action">مشاهده و مدیریت لیست پزشکان <i class="fas fa-briefcase-medical"></i> </a>
+                                <a href="/sick-manage" class="list-group-item list-group-item-action">مشاهده و مدیریت لیست بیماران <i class="fas fa-procedures"></i> </a>
+                                <a href="/sick-cash-list" class="list-group-item list-group-item-action">لیست دریافتی ها از بیماران <i class="fas fa-angle-double-left"></i></a>
+                                <a href="/doctor-cash-list" class="list-group-item list-group-item-action">لیست واریزی ها به پزشکان <i class="fas fa-angle-double-right"></i></a>
+
+                                <a href="/shifts/create" class="list-group-item list-group-item-action">ایجاد شیفت <i class="fas fa-calendar-check"></i> </a>
+                                <a href="/shifts/manage" class="list-group-item list-group-item-action"> مدیریت شیفت های آتی <i class="far fa-calendar-alt"></i></a>
+                                <a href="/shifts/passed-shifts/" class="list-group-item list-group-item-action"> مشاهده شیفت های گذشته <i class="fas fa-calendar-check"></i></a>
+                                <a href="/posts/archives" class="list-group-item list-group-item-action">مدیریت و ایجاد اخبار و اطلاعیه ها <i class="fas fa-rss-square"></i> </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                {% endif %}
+
+
+
+            </div>
+            <!--Right Column-->
+
+        </div>
+    </div>
+    <!--/container-fluid-->
+
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-sm-3 footer-blurb-item">
+                    <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                        <h3 class="bold"><i class="fa fa-angle-double-left"></i> معرفی پروژه</h3>
+                        <hr>
+                        <p style="text-align: justify;">این پرتال برای پروژه درس مهندسی نرم افزار با تدریس دکتر تقی نژاد توسط امیررضا آزادپور و محسن عبادپور در دانشگاه محقق اردبیلی در بهار 1398 طراحی و پیاده سازی شده است.</p>
+
+
+                    </section>
+                </div>
+
+
+                <div class="col-sm-3 footer-blurb-item">
+                    <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                        <h3 class="bold"><i class="fas fa-laptop-medical"></i> معرفی پرتال</h3>
+                        <hr>
+                        <p style="text-align: justify;">
+                            این پرتال جهت مدیریت درمانگاه طراحی شده است که سه دسته کاربر شامل پزشک، بیمار و مسئول درمانگاه با آن در ارتباط است که هدف اصلی آن نوبت دهی خودکار و تشکیل پرونده درمانی در بستر وب می باشد.
+                        </p>
+
+                    </section>
+                </div>
+
+
+                <div class="col-sm-3 footer-blurb-item">
+                    <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                        <h3 class="bold"><i class="fa fa-phone-square"></i> تماس</h3>
+                        <hr>
+                        <p>امیررضا آزادپور <br> 09368122464 <br> محسن عبادپور<br>09361655805</p>
+
+                        <div class="float-right">
+                            <div class="bold">
+                                <p>
+                                    <a class="btn btn-dark" href="mailto:moshen007ebadpour@gmail.com" target="_blank">
+                                            ارسال پست الکترونیک
+                                        </a>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="col-sm-3 footer-blurb-item">
+                    <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                        <h3 class="bold"><i class="fa fa-home"></i> آدرس</h3>
+                        <hr>
+                        <p>اردبیل<br> خیابان دانشگاه <br> دانشگاه محقق اردبیلی<br>گروه مهندسی برق و کامپیوتر</p>
+
+                        <div class="float-right">
+                            <div class="bold">
+                                <p>
+                                    <a class="btn btn-dark" target="_blank" href="https://www.google.com/maps/place/University+of+Mohaghegh+Ardabili/@38.2132975,48.2944966,15z/data=!4m2!3m1!1s0x0:0x7d4ab6eb4ab1f896?sa=X&ved=2ahUKEwjClrixvdzhAhUBy6YKHVIHD6kQ_BIwDXoECAcQCA">
+                                        مشاهده روی نقشه
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+            </div>
+            <!-- /.row -->
+        </div>
+
+
+        <section class="font font-bbcnassim-eot">
+            <div align="center">
+                <p style="text-align: justify;">Copyright &copy; Mohsen &amp; Amirreza 2019 </p>
+            </div>
+        </section>
+
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+</html>
+
+</html>

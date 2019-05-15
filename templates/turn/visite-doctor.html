@@ -1,0 +1,128 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+
+                    <h5 class="bold"> {{shift.start_date.date}} - {{shift.start_date.time}} ویزیت بیمار شیفت </h5>
+
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+
+                        <div class="m-2">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+
+                                {% if form.errors %} {% for field in form %} {% for error in field.errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                                </div>
+                                {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                                </div>
+                                {% endfor %} {% endif %}
+
+
+                                <form class="form" method="POST">{% csrf_token %}
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">نام بیمار</div></label>
+                                        <div class="col-6">
+                                            <p class="form-control-plaintext">{{sick.name}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">علت مراجعه </div></label>
+                                        <div class="col-8">
+                                            <input type="text" class="form-control " name="reason" placeholder="علت مراجعه بیمار را وارد کنید" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">یادداشت پزشکی</div></label>
+                                        <div class="col-8">
+                                            <textarea placeholder="یادداشت پزشکی خود را وارد کنید" rows="3" cols="59" name="note" required></textarea>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="shift" value="{{shift.id}}">
+                                    <input type="hidden" name="sick" value="{{sick.id}}">
+                                    <input type="hidden" name="turn" value="{{turn.id}}">
+                                    <input type="hidden" name="doctor" value="{{shift.doctor.id}}">
+
+                                    <a href="/shifts/my-shifts" class="btn btn-danger">
+                                        <div class="bold">انصراف</div>
+                                    </a>
+                                    <button type="submit" class="btn btn-primary"><div class="bold">ویزیت</div></button>
+                                </form>
+
+
+
+
+
+
+
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    <h5 class="bold">مشاهده لیست سوابق درمانی بیمار <i class="fa fa-paste"></i></h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-3">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+                                <table class="table table-bordered table-hover table-light">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>ردیف</th>
+
+                                            <th>دکتر</th>
+
+                                            <th>تاریخ ویزیت</th>
+                                            <th>ساعت ویزیت</th>
+                                            <th>اتاق ویزیت</th>
+                                            <th>هزینه ویزیت</th>
+                                            <th>علت مراجعه</th>
+                                            <th>یادداشت پزشک</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for turn in turns %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+
+                                            <td>{{turn.shift.doctor}}</td>
+
+                                            <td>{{turn.shift.start_date.date}}</td>
+                                            <td>{{turn.shift.start_date.time}}</td>
+                                            <td>{{turn.shift.room}}</td>
+                                            <td>{{turn.shift.cash}}</td>
+                                            <td>{{turn.reason}}</td>
+                                            <td>{{turn.note}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>{%endblock%}

@@ -1,0 +1,62 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    <h5 class="bold">آرشیو پست ها <i class="fa fa-rss-square"></i></h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-3">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+
+                                {%if messages %}
+                                <section class="font font-bbcnassim-all" style=" text-align: right; ">{%for message in messages%}
+                                    <div class="alert alert-info alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
+                                    </div>
+                                    {% endfor %} </section>{% endif %}
+                                <a href="/posts/create"><button class="btn btn-info"><div class="bold">ایجاد پست جدید</div></button></a>
+                                <hr>
+                                <table class="table table-bordered table-hover table-light">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>عنوان پست</th>
+                                            <th>تاریخ</th>
+                                            <th>مشاهده</th>
+                                            {% if request.user.staff %}
+                                            <th>ویرایش</th>
+                                            <th>حذف</th>
+                                            {% endif %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for post in posts %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{post.title}}</td>
+                                            <td>{{ post.date|date:"M d Y" }} / {{ post.date|date:"G" }}:{{ post.date|date:"i" }}</td>
+
+                                            <td><a href="{{ post.get_url }}"><button class="btn btn-success"><div class="bold">مشاهده</div></button></a></td>
+                                            {% if request.user.staff %}
+                                            <td><a href="{{ post.get_url }}edit"><button class="btn btn-primary"><div class="bold">ویرایش</div></button></a></td>
+                                            <td><a href="{{ post.get_url }}delete"><button class="btn btn-danger" onclick="return confirm('برای حذف پست مطمئن هستید؟');"><div class="bold">حذف</div></button></a></td>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{%endblock%}

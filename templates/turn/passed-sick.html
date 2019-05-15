@@ -1,0 +1,57 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    <h5 class="bold">مشاهده لیست سوابق درمانی <i class="fa fa-paste"></i></h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-3">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+                                <table class="table table-bordered table-hover table-light">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            {% if doctor %}
+                                            <th>نام بیمار</th>
+                                            {% else %}
+                                            <th>نام پزشک</th>
+                                            {% endif %}
+                                            <th>تاریخ ویزیت</th>
+                                            <th>ساعت ویزیت</th>
+                                            <th>اتاق ویزیت</th>
+                                            <th>هزینه ویزیت</th>
+                                            <th>علت مراجعه</th>
+                                            <th>یادداشت پزشک</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for turn in turns %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            {% if doctor %}
+                                            <td>{{turn.sick}}</td>{% else %}
+                                            <td>{{turn.shift.doctor}}</td>{% endif %}
+                                            <td>{{turn.shift.start_date.date}}</td>
+                                            <td>{{turn.shift.start_date.time}}</td>
+                                            <td>{{turn.shift.room}}</td>
+                                            <td>{{turn.shift.cash}}</td>
+                                            <td>{{turn.reason}}</td>
+                                            <td>{{turn.note}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{%endblock%}

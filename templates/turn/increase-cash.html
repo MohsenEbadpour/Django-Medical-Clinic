@@ -1,0 +1,37 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    {%if messages %}
+    <section class="font font-bbcnassim-all" style=" text-align: right; ">{%for message in messages%}
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
+        </div>
+        {% endfor %} </section>{% endif %}
+
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    <h5 class="bold">افزایش اعتبار <i class="fa fa-coins"></i></h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-3">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+
+                                <a href="increase/1000"><button type="button" class="btn btn-primary">1000 تومان</button></a>
+                                <a href="increase/10000"><button type="button" class="btn btn-primary">10000 تومان</button></a>
+                                <a href="increase/20000"><button type="button" class="btn btn-primary">20000 تومان</button></a>
+                                <a href="increase/50000"><button type="button" class="btn btn-primary">50000 تومان</button></a>
+
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{%endblock%}

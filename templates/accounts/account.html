@@ -1,0 +1,65 @@
+{% extends "base.html"%} {% block content %}
+
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    <h5 class="bold">مشاهده پروفایل <i class="fa fa-eye"></i></h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-2">
+
+                            <section class="font font-bbcnassim-eot" style=" text-align: right;">
+                                {%if messages %} {%for message in messages%}
+                                <div class="alert alert-info alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
+                                </div>
+                                {% endfor %} {% endif %}
+                                <dl class="row">
+                                    <dd class="col-sm-8">{%if request.user.sick %}{{request.user.sick.name}} {% else %}{{request.user.doctor.name}} {% endif %} {%if request.user.staff %}{{request.user.staff.name}} {% endif %}</dd>
+                                    <dt class="col-sm-4">نام و نام خانوادگی</dt>
+                                </dl>
+
+
+                                <dl class="row">
+                                    <dd class="col-sm-8">{%if request.user.sick %}{{request.user.sick.id_number}} {% else %}{{request.user.doctor.id_number}} {% endif %} {%if request.user.staff %}{{request.user.staff.id_number}} {% endif %}</dd>
+                                    <dt class="col-sm-4">کد ملی</dt>
+                                </dl>
+
+
+                                <dl class="row">
+                                    <dd class="col-sm-8">{{request.user.email}}</dd>
+                                    <dt class="col-sm-4">پست الکترونیک</dt>
+                                </dl>
+
+
+                                <dl class="row">
+                                    <dd class="col-sm-8">{%if request.user.sick %}بیمار {% else %}پزشک {% endif %} {%if request.user.staff %}مسئول فنی {% endif %}</dd>
+                                    <dt class="col-sm-4">سمت</dt>
+                                </dl>
+
+
+                                <dl class="row">
+                                    <dd class="col-sm-8">{%if request.user.sick %}{{request.user.sick.phone}} {% else %}{{request.user.doctor.phone}} {% endif %} {%if request.user.staff %}{{request.user.staff.phone}} {% endif %}</dd>
+                                    <dt class="col-sm-4">شماره تماس</dt>
+                                </dl>
+
+                            </section>
+                            <section class="font font-bbcnassim-eot" style=" text-align: right;">
+                                <a href="/account/edit"><button class="btn btn-primary"><div class="bold">ویرایش</div></button></a>
+                                <a href="/"><button class="btn btn-danger"><div class="bold">بازگشت</div></button></a>
+                            </section>
+
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{%endblock%}

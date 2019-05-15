@@ -1,0 +1,73 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    {%if messages %}
+    <section class="font font-bbcnassim-all" style=" text-align: right; ">{%for message in messages%}
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
+        </div>
+        {% endfor %} </section>{% endif %}
+
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    <h5 class="bold">
+                        {% if readonly %} لیست دریافتی ها از بیماران <i class="fas fa-angle-double-left"></i> {% else %} مشاهده و مدیریت لیست بیماران <i class="fas fa-procedures"></i> {% endif %}
+
+                    </h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-3">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+
+                                <table class="table table-bordered table-hover table-light">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>نام بیمار</th>
+                                            {% if not readonly %}
+                                            <th>تعداد ویزیت ها</th>
+                                            <th>رایانامه</th>
+                                            <th>شماره تلفن</th>
+                                            <th>شماره ملی</th>
+                                            <th>حذف بیمار</th>
+                                            {% else %}
+                                            <th>رایانامه</th>
+                                            <th>مقدار کل دریافتی</th>
+                                            {% endif %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for sick,visite in sicks %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{sick.name}}</td>
+                                            {% if not readonly %}
+                                            <td>{{visite}}</td>
+                                            <td>{{sick.user.email}}</td>
+                                            <td>{{sick.phone}}</td>
+                                            <td>{{sick.id_number}}</td>
+                                            <td><a href="/sick-manage/{{sick.id}}/delete"><button class="btn btn-danger" onclick="return confirm('برای حذف بیمار مطمئن هستید؟');">حذف بیمار</button></a></td>
+                                            {% else %}
+                                            <td>{{sick.user.email}}</td>
+                                            <td>
+                                                <div class="bold">{{sick.cash}} تومان</div>
+                                            </td>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{%endblock%}

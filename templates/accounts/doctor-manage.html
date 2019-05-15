@@ -1,0 +1,68 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    {%if messages %}
+    <section class="font font-bbcnassim-all" style=" text-align: right; ">{%for message in messages%}
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
+        </div>
+        {% endfor %} </section>{% endif %}
+
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    <h5 class="bold">مشاهده و مدیریت لیست پزشکان <i class="fas fa-briefcase-medical"></i></h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-3">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+
+                                <table class="table table-bordered table-hover table-light">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>نام پزشک</th>
+                                            {% if not readonly %}
+                                            <th>تعداد ویزیت ها</th>
+                                            <th>رایانامه</th>
+                                            <th>شماره تلفن</th>
+                                            <th>شماره ملی</th>
+                                            <th>حذف پزشک</th>
+                                            {% else %}
+                                            <th>رایانامه</th>
+                                            <th>مقدار کل پرداختی</th>
+                                            {% endif %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for doctor,visite in doctors %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{doctor.name}}</td>
+                                            {% if not readonly %}
+                                            <td>{{visite}}</td>
+                                            <td>{{doctor.user.email}}</td>
+                                            <td>{{doctor.phone}}</td>
+                                            <td>{{doctor.id_number}}</td>
+                                            <td><a href="/doctor-manage/{{doctor.id}}/delete"><button class="btn btn-danger" onclick="return confirm('برای حذف دکتر مطمئن هستید؟');">حذف پزشک</button></a></td>
+                                            {% else %}
+                                            <td>{{doctor.user.email}}</td>
+                                            <th>{{ visite }} تومان</th>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{%endblock%}

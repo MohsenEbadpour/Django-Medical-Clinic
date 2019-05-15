@@ -1,0 +1,90 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    {% if readonly %}
+                    <h5 class="bold">ویرایش {%if request.user.sick %}بیمار {% endif %} {% if request.user.doctor %}پزشک {% endif %} {%if request.user.staff %}مسئول فنی {% endif %}<i class="fa fa-edit"></i></h5>
+                    {% else %}
+                    <h5 class="bold">ثبت نام {%if sick %}بیمار {% else %}پزشک {% endif %} <i class="fas fa-user-plus"></i></h5>
+                    {% endif %}
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+
+                        <div class="m-2">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+
+                                {% if form.errors %} {% for field in form %} {% for error in field.errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                                </div>
+                                {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                                </div>
+                                {% endfor %} {% endif %}
+
+                                <form class="form" method="POST">{% csrf_token %}
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">نام و نام خانوادگی</div></label>
+                                        <div class="col-8">
+                                            <input type="text" class="form-control " id="id_name" name="name" placeholder="نام و نام خانوادگی خود را وارد کنید" required {% if readonly%} value="{{instance.name}}" {% endif %}>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">کد ملی</div></label>
+                                        <div class="col-8">
+                                            <input type="number" class="form-control " id="id_id_number" name="id_number" placeholder="کد ملی خود را وارد کنید" required {% if readonly%}readonly value="{{instance.id_number}}" {% endif %}>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">پست الکترونیک</div></label>
+                                        <div class="col-8">
+                                            <input type="email" class="form-control" id="id_email" name="email" placeholder="E-mail خود را وارد کنید" required {% if readonly%}readonly value="{{request.user.email}}" {% endif %}>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">سمت</div></label>
+                                        <div class="col-6">
+                                            <p class="form-control-plaintext">{%if sick %}بیمار {% else %}پزشک {% endif %}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">شماره تماس</div></label>
+                                        <div class="col-8">
+                                            <input type="tel" class="form-control" placeholder="شماره تماس خود را با پیش کد وارد کنید" id="id_phone" name="phone" required{% if readonly%} value="{{instance.phone}}" {% endif %}>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">گذرواژه</div></label>
+                                        <div class="col-8">
+                                            <input type="password" class="form-control" placeholder="گذرواژه خود را وارد کنید" required id="id_password" name="password" required>
+                                        </div>
+                                    </div>
+
+                                    <a href="/account" class="btn btn-danger">
+                                        <div class="bold">انصراف</div>
+                                    </a> {%if request.user.is_authenticated%}
+                                    <button type="submit" class="btn btn-primary"><div class="bold">ثبت تغییرات</div></button> {% else %}
+                                    <button type="submit" class="btn btn-primary"><div class="bold">ثبت نام</div></button> {% endif %}
+
+                                </form>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{%endblock%}

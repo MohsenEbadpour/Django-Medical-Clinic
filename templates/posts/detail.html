@@ -1,0 +1,41 @@
+{% extends "base.html"%} {% block content %}
+
+<div class="m-2">
+    {%if messages %}
+    <section class="font font-bbcnassim-all" style=" text-align: right; ">{%for message in messages%}
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
+        </div>
+        {% endfor %} </section>{% endif %}
+    <div class="card">
+
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="direction: rtl; text-align: right;">
+                    <h5 class="bold">{{post.title}}</h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-2">
+                            <section class="font font-bbcnassim-ttf" style="direction: rtl; text-align: right;">
+                                <p style="text-align: justify;">{{post.context}} </p>
+
+                                {% if request.user.staff %}
+                                <p><a href="{{ post.get_url }}edit"><button class="btn btn-primary"><div class="bold">ویرایش</div></button></a>
+                                    <a href="{{ post.get_url }} delete"><button class="btn btn-danger" onclick="return confirm('برای حذف پست مطمئن هستید؟');"><div class="bold">حذف</div></button></a></p>
+                                {% endif %}
+
+                                <p class="pull-left">{%for h in hashtags %} <span class="badge badge-pill badge-light">{{h}}</span> {% endfor %}</p>
+                                <ul class="list-inline">
+                                </ul>
+                            </section>
+                        </div>
+
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div> {%endblock%}

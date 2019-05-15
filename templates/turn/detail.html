@@ -1,0 +1,153 @@
+{% extends "base.html"%} {% block content %}
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+
+                    <h5 class="bold">مشخصات شیفت <i class="fas fa-calendar-check"></i></h5>
+
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+
+                        <div class="m-2">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+
+                                {% if form.errors %} {% for field in form %} {% for error in field.errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                                </div>
+                                {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}}
+                                </div>
+                                {% endfor %} {% endif %}
+
+
+                                <form class="form" method="POST">{% csrf_token %}
+
+
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">دکتر</div></label>
+                                        <div class="col-8">
+                                            {% if not readonly %}
+                                            <select class="form-control" name="doctor">
+                                                    {%for doctor in doctors %}
+                                                        <option value="{{doctor.id}}">{{doctor.name}}</option>
+                                                        {% endfor %}
+
+                                            </select> {% else %}
+                                            <input type="text" class="form-control " name="doctor" placeholder="" required value="{{shift.doctor.name}}" disabled> {% endif %}
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">تاریخ و ساعت شروع</div></label>
+                                        <div class="col-8">
+                                            <div class="input-group date">
+                                                <input type="text" name="start_date" class="form-control datetimepicker-input"  required value='{{shift.start_date|date:"d/m/Y h:i A"}}' disabled/>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">تاریخ و ساعت پایان</div></label>
+                                        <div class="col-8">
+                                            <div class="input-group date" >
+                                                <input type="text" name="end_date" class="form-control datetimepicker-input"  required value='{{shift.end_date|date:"d/m/Y h:i A"}}' disabled/>
+                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">مکان معاینه</div></label>
+                                        <div class="col-8">
+                                            <input type="text" class="form-control " name="room" placeholder="مکان معاینه را وارد کنید" required {% if readonly %}value="{{shift.room}}" {% endif %}disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">هزینه ویزیت</div></label>
+                                        <div class="col-8">
+                                            <input type="number" class="form-control " name="cash" placeholder="هزینه ویزیت را وارد کنید" required {% if readonly %}value="{{shift.cash}}" disabled {% endif %}disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-3 col-form-label mr-2"><div class="bold">حداکثر تعداد ویزیت</div></label>
+                                        <div class="col-8">
+                                            <input type="number" class="form-control " name="max_count" placeholder="حداکثر تعداد ویزیت را وارد کنید" required {% if readonly %}value="{{shift.max_count}}" disabled {% endif %}disabled>
+                                        </div>
+                                    </div>
+
+
+
+                                    <a href="/shifts/manage" class="btn btn-danger">
+                                        <div class="bold">بازگشت</div>
+                                    </a> 
+                                    
+             
+
+                                </form>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="m-2">
+    <div class="card">
+        <section class="font font-bbcnassim-all" style=" text-align: right; ">
+            <div class="card-header p-b-0">
+                <section class="font font-bbcnassim-eot" style="text-align: right;">
+                    <h5 class="bold">نوبت های شیفت <i class="fa fa-paste"></i></h5>
+                </section>
+            </div>
+            <div class="card-block">
+                <div class="m-2">
+                    <article>
+                        <div class="m-3">
+                            <section class="font font-bbcnassim-eot" style=" direction: rtl; text-align: right;">
+                                <table class="table table-bordered table-hover table-light">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>نام بیمار</th>
+                                            <th>علت مراجعه</th>
+                                            <th>یادداشت پزشک</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for turn in turns %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{turn.sick}}</td>
+                                            <td>{{turn.reason}}</td>
+                                            <td>{{turn.note}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+</div> {%endblock%}
