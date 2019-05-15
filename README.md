@@ -33,6 +33,6 @@ This was developed as a task for "software engineering" course in University of 
 - pytz 2019.1
 - sqlparse 0.3.0
 
-#مشارکت کنندگان
+# مشارکت کنندگان
 @MohsenEbadpour
 @redhatx7
