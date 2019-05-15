@@ -27,3 +27,4 @@ This was developed as a task for "software engineering" course in University of 
 - pytz 2019.1
 - sqlparse 0.3.0
 
+![alt text](https://github.com/MohsenEbadpour/Django-Medical-Clinic/blob/master/Screenshot.png "Screenshot")
